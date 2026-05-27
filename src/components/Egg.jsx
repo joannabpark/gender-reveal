@@ -50,7 +50,6 @@ const Egg = ({ onTap, tapCount, maxTaps, isRevealed }) => {
       >
         <svg className="egg-svg" viewBox="0 0 200 240" preserveAspectRatio="xMidYMid meet">
           <defs>
-            {/* Better brown gradient for realistic egg */}
             <radialGradient id="eggGradient" cx="35%" cy="30%">
               <stop offset="0%" style={{ stopColor: '#c9a876', stopOpacity: 1 }} />
               <stop offset="40%" style={{ stopColor: '#a8845c', stopOpacity: 1 }} />
@@ -62,46 +61,51 @@ const Egg = ({ onTap, tapCount, maxTaps, isRevealed }) => {
             </filter>
           </defs>
 
-          {/* Top half - smooth rounded */}
-          <g style={{ transform: `translateY(-${separationY}px)`, transition: 'transform 0.6s ease-out' }}>
+          {/* Whole egg - shows until revealed */}
+          <g style={{ opacity: isRevealed ? 0 : 1, transition: 'opacity 0.3s ease-out' }}>
             <ellipse
               cx="100"
-              cy="60"
+              cy="110"
               rx="65"
-              ry="55"
+              ry="85"
               fill="url(#eggGradient)"
               filter="url(#eggTexture)"
             />
             
-            {/* Top speckles */}
+            {/* Speckles */}
             <circle cx="75" cy="50" r="2.5" fill="#6b5437" opacity="0.5" />
             <circle cx="125" cy="60" r="2" fill="#6b5437" opacity="0.4" />
             <circle cx="90" cy="80" r="2" fill="#6b5437" opacity="0.6" />
-            <circle cx="135" cy="70" r="1.5" fill="#6b5437" opacity="0.3" />
-            <circle cx="70" cy="90" r="1.5" fill="#6b5437" opacity="0.4" />
-          </g>
-
-          {/* Bottom half - smooth rounded oval */}
-          <g style={{ transform: `translateY(${separationY}px)`, transition: 'transform 0.6s ease-out' }}>
-            <ellipse
-              cx="100"
-              cy="160"
-              rx="65"
-              ry="60"
-              fill="url(#eggGradient)"
-              filter="url(#eggTexture)"
-            />
-            
-            {/* Bottom speckles */}
+            <circle cx="135" cy="100" r="1.5" fill="#6b5437" opacity="0.3" />
+            <circle cx="70" cy="110" r="1.5" fill="#6b5437" opacity="0.4" />
             <circle cx="80" cy="140" r="2" fill="#6b5437" opacity="0.5" />
             <circle cx="120" cy="155" r="2" fill="#6b5437" opacity="0.4" />
             <circle cx="100" cy="180" r="1.5" fill="#6b5437" opacity="0.5" />
-            <circle cx="135" cy="165" r="1.5" fill="#6b5437" opacity="0.3" />
-            <circle cx="70" cy="170" r="1.5" fill="#6b5437" opacity="0.4" />
+            <circle cx="135" cy="135" r="1.5" fill="#6b5437" opacity="0.3" />
+            <circle cx="70" cy="160" r="1.5" fill="#6b5437" opacity="0.4" />
+          </g>
+
+          {/* Split egg halves on reveal */}
+          <g style={{ opacity: isRevealed ? 1 : 0, transition: 'opacity 0.3s ease-out' }}>
+            {/* Top half */}
+            <g style={{ transform: `translateY(-${separationY}px)`, transition: 'transform 0.6s ease-out' }}>
+              <ellipse cx="100" cy="60" rx="65" ry="55" fill="url(#eggGradient)" filter="url(#eggTexture)" />
+              <circle cx="75" cy="50" r="2.5" fill="#6b5437" opacity="0.5" />
+              <circle cx="125" cy="60" r="2" fill="#6b5437" opacity="0.4" />
+              <circle cx="90" cy="80" r="2" fill="#6b5437" opacity="0.6" />
+            </g>
+
+            {/* Bottom half */}
+            <g style={{ transform: `translateY(${separationY}px)`, transition: 'transform 0.6s ease-out' }}>
+              <ellipse cx="100" cy="160" rx="65" ry="60" fill="url(#eggGradient)" filter="url(#eggTexture)" />
+              <circle cx="80" cy="140" r="2" fill="#6b5437" opacity="0.5" />
+              <circle cx="120" cy="155" r="2" fill="#6b5437" opacity="0.4" />
+              <circle cx="100" cy="180" r="1.5" fill="#6b5437" opacity="0.5" />
+            </g>
           </g>
 
           {/* Shine highlight */}
-          <ellipse cx="70" cy="60" rx="20" ry="30" fill="white" opacity="0.1" />
+          <ellipse cx="70" cy="50" rx="20" ry="30" fill="white" opacity="0.1" />
 
           {/* Expanding crack line */}
           {crackPath && (
