@@ -18,7 +18,8 @@ const Egg = ({ onTap, tapCount, maxTaps, isRevealed }) => {
     'M 60 120 L 140 120',
   ];
 
-  const handleClick = () => {
+  const handleTap = (e) => {
+    e.preventDefault();
     if (isRevealed || tapCount >= maxTaps) return;
 
     // Trigger wiggle
@@ -39,8 +40,7 @@ const Egg = ({ onTap, tapCount, maxTaps, isRevealed }) => {
     <div className="egg-container">
       <div
         className={`egg ${isWiggling ? 'wiggle' : ''}`}
-        onClick={handleClick}
-        onTouchStart={handleClick}
+        onPointerDown={handleTap}
         style={{ opacity: eggOpacity, pointerEvents: isRevealed ? 'none' : 'auto' }}
       >
         <svg className="cracks" viewBox="0 0 200 240" preserveAspectRatio="none">
