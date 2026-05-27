@@ -6,8 +6,9 @@ const Egg = ({ onTap, tapCount, maxTaps, isRevealed }) => {
 
   const createExpandingCrack = (expansion) => {
     const progress = Math.min(expansion / maxTaps, 1);
-    const leftStart = Math.max(30, 100 - progress * 70);
-    const rightEnd = Math.min(170, 100 + progress * 70);
+    // Expand further to reach both edges of egg (egg goes from ~35 to ~165)
+    const leftStart = Math.max(32, 100 - progress * 75);
+    const rightEnd = Math.min(168, 100 + progress * 75);
     
     const segments = [];
     const startX = leftStart;
@@ -104,8 +105,8 @@ const Egg = ({ onTap, tapCount, maxTaps, isRevealed }) => {
             </g>
           </g>
 
-          {/* Shine highlight */}
-          <ellipse cx="70" cy="50" rx="20" ry="30" fill="white" opacity="0.1" />
+          {/* Shine highlight - centered on egg */}
+          <ellipse cx="75" cy="55" rx="22" ry="32" fill="white" opacity="0.1" />
 
           {/* Expanding crack line */}
           {crackPath && (
