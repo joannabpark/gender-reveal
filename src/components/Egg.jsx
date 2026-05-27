@@ -3,44 +3,19 @@ import '../styles/Egg.css';
 
 const Egg = ({ onTap, tapCount, maxTaps, isRevealed }) => {
   const [isWiggling, setIsWiggling] = useState(false);
-  const [cracks, setCracks] = useState([]);
 
-  // True horizontal cracks with varied zigzag designs, staying within egg
-  const crackPaths = [
-    // Shallow wide zigzag (top)
-    'M 45 65 L 75 63 L 85 68 L 105 66 L 125 70 L 145 68 L 155 70',
-    // Medium zigzag (upper-middle)
-    'M 40 95 L 65 93 L 75 98 L 90 96 L 110 100 L 130 98 L 150 102 L 160 100',
-    // Tight zigzag (middle)
-    'M 45 125 L 60 124 L 70 127 L 80 125 L 90 128 L 100 126 L 110 129 L 120 127 L 135 130 L 150 128 L 160 131',
-    // Wide shallow zigzag (lower-middle)
-    'M 40 155 L 75 152 L 95 157 L 120 154 L 145 158 L 160 156',
-    // Small amplitude zigzag (lower)
-    'M 50 180 L 70 179 L 85 181 L 100 180 L 115 182 L 130 181 L 150 183',
-    // Diagonal-slight horizontal (top-right to bottom-left)
-    'M 50 50 L 80 52 L 100 50 L 120 53 L 140 51 L 155 54',
-    // Large amplitude zigzag (middle-left area)
-    'M 45 110 L 65 107 L 80 115 L 100 110 L 120 118 L 140 112 L 155 120',
-    // Fine zigzag pattern (dense)
-    'M 55 140 L 68 139 L 75 141 L 85 140 L 95 142 L 105 141 L 115 143 L 125 142 L 135 144 L 148 143',
-    // Wavy horizontal (top area)
-    'M 40 75 L 70 73 L 90 77 L 110 74 L 135 78 L 155 75',
-    // Bottom horizontal with zigzag
-    'M 50 195 L 80 193 L 105 197 L 130 194 L 155 198',
-  ];
+  // Single expanding zigzag crack pattern
+  const mainCrackPath = 'M 70 120 L 75 119 L 80 121 L 85 120 L 90 122 L 95 121 L 100 123 L 105 122 L 110 124 L 115 123 L 120 125 L 125 124 L 130 126';
+
+  // Calculate expansion based on tap count (0-100%)
+  const expansionPercentage = Math.min((tapCount / maxTaps) * 100, 100);
 
   const handleTap = (e) => {
     e.preventDefault();
     if (isRevealed || tapCount >= maxTaps) return;
 
-    // Trigger wiggle
     setIsWiggling(true);
     setTimeout(() => setIsWiggling(false), 300);
-
-    // Add new crack
-    if (tapCount < crackPaths.length) {
-      setCracks(prev => [...prev, { path: crackPaths[tapCount], index: tapCount }]);
-    }
 
     onTap();
   };
@@ -55,7 +30,6 @@ const Egg = ({ onTap, tapCount, maxTaps, isRevealed }) => {
         style={{ opacity: eggOpacity, pointerEvents: isRevealed ? 'none' : 'auto' }}
       >
         <svg className="egg-svg" viewBox="0 0 200 240" preserveAspectRatio="xMidYMid meet">
-          {/* Egg shell with gradient and texture */}
           <defs>
             <radialGradient id="eggGradient" cx="35%" cy="35%">
               <stop offset="0%" style={{ stopColor: '#d4a574', stopOpacity: 1 }} />
@@ -66,6 +40,10 @@ const Egg = ({ onTap, tapCount, maxTaps, isRevealed }) => {
               <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" result="noise" />
               <feDisplacementMap in="SourceGraphic" in2="noise" scale="1" />
             </filter>
+            {/* Clipping path for expanding crack */}
+            <clipPath id="crackClip">
+              <rect x={`${50 - expansionPercentage * 0.25}`} y="0" width={`${100 + expansionPercentage * 0.5}`} height="240" />
+            </clipPath>
           </defs>
 
           {/* Main egg shape */}
@@ -78,7 +56,7 @@ const Egg = ({ onTap, tapCount, maxTaps, isRevealed }) => {
             filter="url(#eggTexture)"
           />
 
-          {/* Speckles for realistic texture */}
+          {/* Speckles */}
           <circle cx="70" cy="60" r="3" fill="#6b5437" opacity="0.6" />
           <circle cx="130" cy="75" r="2.5" fill="#6b5437" opacity="0.5" />
           <circle cx="90" cy="100" r="2" fill="#6b5437" opacity="0.7" />
@@ -91,32 +69,22 @@ const Egg = ({ onTap, tapCount, maxTaps, isRevealed }) => {
           <circle cx="75" cy="120" r="2" fill="#6b5437" opacity="0.5" />
           <circle cx="125" cy="145" r="2.5" fill="#6b5437" opacity="0.4" />
 
-          {/* Highlight for shine - positioned inside egg */}
+          {/* Highlight */}
           <ellipse cx="75" cy="75" rx="25" ry="35" fill="white" opacity="0.12" />
 
-          {/* Cracks container */}
-          <g className="cracks">
-            {cracks.map((crack, idx) => (
-              <g key={idx}>
-                {/* Main crack line */}
-                <path
-                  d={crack.path}
-                  className="crack visible"
-                  style={{
-                    animationDelay: `${idx * 0.1}s`
-                  }}
-                />
-                {/* Secondary branching cracks for realism */}
-                <path
-                  d={crack.path}
-                  className="crack-shadow visible"
-                  style={{
-                    animationDelay: `${idx * 0.1 + 0.05}s`
-                  }}
-                  strokeDashoffset="-2"
-                />
-              </g>
-            ))}
+          {/* Expanding crack - clipped to expand from center */}
+          <g clipPath="url(#crackClip)">
+            {/* Main crack line */}
+            <path
+              d={mainCrackPath}
+              className={`crack expanding ${tapCount > 0 ? 'visible' : ''}`}
+            />
+            {/* Crack shadow for depth */}
+            <path
+              d={mainCrackPath}
+              className={`crack-shadow expanding ${tapCount > 0 ? 'visible' : ''}`}
+              strokeDashoffset="-2"
+            />
           </g>
         </svg>
       </div>
