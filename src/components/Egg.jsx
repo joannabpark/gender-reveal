@@ -5,18 +5,18 @@ const Egg = ({ onTap, tapCount, maxTaps, isRevealed }) => {
   const [isWiggling, setIsWiggling] = useState(false);
   const [cracks, setCracks] = useState([]);
 
-  // More realistic crack paths that spread across the entire egg
+  // More realistic zigzag crack paths that spread across entire egg
   const crackPaths = [
-    'M 100 30 Q 95 60 100 120 Q 102 150 100 200',
-    'M 100 30 Q 105 65 100 120 Q 98 155 100 200',
-    'M 60 80 Q 80 100 100 120 Q 110 135 140 160',
-    'M 140 80 Q 120 100 100 120 Q 90 135 60 160',
-    'M 80 50 L 110 180',
-    'M 120 50 L 90 180',
-    'M 50 120 Q 75 130 100 140 Q 120 145 150 150',
-    'M 50 160 Q 75 165 100 170 Q 120 172 150 175',
-    'M 100 60 Q 85 100 100 140 Q 115 175 100 210',
-    'M 70 90 Q 90 110 110 130 Q 120 160 110 190',
+    'M 100 20 L 95 50 L 105 80 L 95 110 L 100 140 L 90 170 L 100 220',
+    'M 100 20 L 105 50 L 95 80 L 105 110 L 100 140 L 110 170 L 100 220',
+    'M 50 40 L 75 70 L 60 100 L 80 130 L 70 160 L 85 190',
+    'M 150 40 L 125 70 L 140 100 L 120 130 L 130 160 L 115 190',
+    'M 70 30 L 85 60 L 75 90 L 95 120 L 85 150 L 100 180 L 95 210',
+    'M 130 30 L 115 60 L 125 90 L 105 120 L 115 150 L 100 180 L 105 210',
+    'M 40 80 L 65 95 L 55 125 L 75 145 L 65 175',
+    'M 160 80 L 135 95 L 145 125 L 125 145 L 135 175',
+    'M 100 40 L 110 75 L 95 110 L 110 145 L 95 180 L 105 215',
+    'M 80 50 L 100 85 L 85 120 L 105 160 L 90 190 L 110 220',
   ];
 
   const handleTap = (e) => {
@@ -81,8 +81,8 @@ const Egg = ({ onTap, tapCount, maxTaps, isRevealed }) => {
           <circle cx="75" cy="120" r="2" fill="#6b5437" opacity="0.5" />
           <circle cx="125" cy="145" r="2.5" fill="#6b5437" opacity="0.4" />
 
-          {/* Highlight for shine */}
-          <ellipse cx="60" cy="60" rx="30" ry="40" fill="white" opacity="0.15" />
+          {/* Highlight for shine - positioned inside egg */}
+          <ellipse cx="75" cy="75" rx="25" ry="35" fill="white" opacity="0.12" />
 
           {/* Cracks container */}
           <g className="cracks">
