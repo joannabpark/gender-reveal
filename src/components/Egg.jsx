@@ -62,10 +62,13 @@ const Egg = ({ onTap, tapCount, maxTaps, isRevealed }) => {
             </filter>
           </defs>
 
-          {/* Top half - proper egg shape (rounder) */}
+          {/* Top half - smooth rounded */}
           <g style={{ transform: `translateY(-${separationY}px)`, transition: 'transform 0.6s ease-out' }}>
-            <path
-              d="M 100 20 Q 60 25 50 65 Q 45 85 50 110 L 150 110 Q 155 85 150 65 Q 140 25 100 20 Z"
+            <ellipse
+              cx="100"
+              cy="60"
+              rx="65"
+              ry="55"
               fill="url(#eggGradient)"
               filter="url(#eggTexture)"
             />
@@ -74,14 +77,17 @@ const Egg = ({ onTap, tapCount, maxTaps, isRevealed }) => {
             <circle cx="75" cy="50" r="2.5" fill="#6b5437" opacity="0.5" />
             <circle cx="125" cy="60" r="2" fill="#6b5437" opacity="0.4" />
             <circle cx="90" cy="80" r="2" fill="#6b5437" opacity="0.6" />
-            <circle cx="135" cy="95" r="1.5" fill="#6b5437" opacity="0.3" />
-            <circle cx="70" cy="100" r="1.5" fill="#6b5437" opacity="0.4" />
+            <circle cx="135" cy="70" r="1.5" fill="#6b5437" opacity="0.3" />
+            <circle cx="70" cy="90" r="1.5" fill="#6b5437" opacity="0.4" />
           </g>
 
-          {/* Bottom half - pointed egg shape */}
+          {/* Bottom half - smooth rounded oval */}
           <g style={{ transform: `translateY(${separationY}px)`, transition: 'transform 0.6s ease-out' }}>
-            <path
-              d="M 50 110 Q 45 135 50 165 Q 60 200 100 210 Q 140 200 150 165 Q 155 135 150 110 Z"
+            <ellipse
+              cx="100"
+              cy="160"
+              rx="65"
+              ry="60"
               fill="url(#eggGradient)"
               filter="url(#eggTexture)"
             />
@@ -89,9 +95,9 @@ const Egg = ({ onTap, tapCount, maxTaps, isRevealed }) => {
             {/* Bottom speckles */}
             <circle cx="80" cy="140" r="2" fill="#6b5437" opacity="0.5" />
             <circle cx="120" cy="155" r="2" fill="#6b5437" opacity="0.4" />
-            <circle cx="100" cy="175" r="1.5" fill="#6b5437" opacity="0.5" />
-            <circle cx="135" cy="135" r="1.5" fill="#6b5437" opacity="0.3" />
-            <circle cx="70" cy="160" r="1.5" fill="#6b5437" opacity="0.4" />
+            <circle cx="100" cy="180" r="1.5" fill="#6b5437" opacity="0.5" />
+            <circle cx="135" cy="165" r="1.5" fill="#6b5437" opacity="0.3" />
+            <circle cx="70" cy="170" r="1.5" fill="#6b5437" opacity="0.4" />
           </g>
 
           {/* Shine highlight */}
