@@ -19,7 +19,7 @@ const Reveal = ({ isVisible, gender, onReset }) => {
           Play Again
         </button>
       </div>
-    </div>git credential reject https://github.com
+    </div>
   );
 };
 
