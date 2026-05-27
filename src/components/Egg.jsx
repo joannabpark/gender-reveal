@@ -5,25 +5,24 @@ const Egg = ({ onTap, tapCount, maxTaps, isRevealed }) => {
   const [isWiggling, setIsWiggling] = useState(false);
   const [cracks, setCracks] = useState([]);
 
-  // Zigzag cracks both vertical and horizontal, staying within egg bounds
+  // Mostly horizontal zigzags with some vertical for realistic hatching
   const crackPaths = [
-    // Vertical zigzags
-    'M 100 25 L 95 50 L 105 75 L 95 100 L 105 125 L 95 150 L 105 175 L 100 205',
-    'M 100 25 L 105 50 L 95 75 L 105 100 L 95 125 L 105 150 L 95 175 L 100 205',
-    // Horizontal zigzags
-    'M 40 90 L 65 85 L 75 100 L 65 115 L 80 125 L 160 130',
-    'M 40 130 L 70 125 L 80 140 L 70 155 L 85 165 L 160 170',
-    // Diagonal zigzags top-left to bottom-right
-    'M 50 45 L 70 65 L 65 90 L 80 110 L 75 135 L 90 160 L 85 185',
-    'M 150 45 L 130 65 L 135 90 L 120 110 L 125 135 L 110 160 L 115 185',
-    // Curved horizontal with zigzag
-    'M 35 75 L 60 70 L 70 85 L 65 100 L 75 110 L 85 120 L 95 130 L 110 138 L 130 145 L 160 150',
-    // Curved with vertical zigzag
-    'M 60 35 L 75 55 L 70 75 L 85 95 L 80 115 L 95 135 L 90 160 L 100 190',
-    // Middle zigzag going across
-    'M 45 110 L 70 105 L 80 120 L 70 135 L 85 150 L 100 160 L 120 155 L 140 165 L 155 175',
-    // Bottom diagonal zigzag
-    'M 50 150 L 75 140 L 85 160 L 75 180 L 90 195 L 110 190 L 130 200',
+    // Horizontal zigzags (majority)
+    'M 40 70 L 65 65 L 75 80 L 65 95 L 80 110 L 70 125 L 85 140 L 95 150 L 110 155 L 135 160 L 155 165',
+    'M 35 110 L 60 105 L 75 120 L 65 135 L 82 150 L 72 165 L 90 175 L 110 180 L 130 185 L 155 190',
+    'M 45 150 L 70 145 L 85 160 L 75 175 L 92 190 L 110 200',
+    'M 40 90 L 75 85 L 90 100 L 80 115 L 100 130 L 120 140 L 145 150 L 160 160',
+    // Slightly angled horizontals
+    'M 50 50 L 80 55 L 95 70 L 85 85 L 105 100 L 120 115 L 140 125 L 155 135',
+    'M 45 180 L 75 175 L 90 190 L 100 200',
+    // Vertical for structure
+    'M 100 30 L 95 70 L 105 110 L 95 150 L 105 190',
+    // Mixed diagonal-horizontal
+    'M 50 130 L 85 125 L 105 145 L 95 165 L 120 180 L 140 190',
+    // Wide horizontal spread
+    'M 30 120 L 70 115 L 95 135 L 120 145 L 150 155 L 165 160',
+    // Bottom horizontal
+    'M 55 170 L 90 165 L 110 180 L 135 190 L 160 195',
   ];
 
   const handleTap = (e) => {
