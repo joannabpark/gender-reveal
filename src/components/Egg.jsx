@@ -5,18 +5,25 @@ const Egg = ({ onTap, tapCount, maxTaps, isRevealed }) => {
   const [isWiggling, setIsWiggling] = useState(false);
   const [cracks, setCracks] = useState([]);
 
-  // More realistic zigzag crack paths that spread across entire egg
+  // Zigzag cracks both vertical and horizontal, staying within egg bounds
   const crackPaths = [
-    'M 100 20 L 95 50 L 105 80 L 95 110 L 100 140 L 90 170 L 100 220',
-    'M 100 20 L 105 50 L 95 80 L 105 110 L 100 140 L 110 170 L 100 220',
-    'M 50 40 L 75 70 L 60 100 L 80 130 L 70 160 L 85 190',
-    'M 150 40 L 125 70 L 140 100 L 120 130 L 130 160 L 115 190',
-    'M 70 30 L 85 60 L 75 90 L 95 120 L 85 150 L 100 180 L 95 210',
-    'M 130 30 L 115 60 L 125 90 L 105 120 L 115 150 L 100 180 L 105 210',
-    'M 40 80 L 65 95 L 55 125 L 75 145 L 65 175',
-    'M 160 80 L 135 95 L 145 125 L 125 145 L 135 175',
-    'M 100 40 L 110 75 L 95 110 L 110 145 L 95 180 L 105 215',
-    'M 80 50 L 100 85 L 85 120 L 105 160 L 90 190 L 110 220',
+    // Vertical zigzags
+    'M 100 25 L 95 50 L 105 75 L 95 100 L 105 125 L 95 150 L 105 175 L 100 205',
+    'M 100 25 L 105 50 L 95 75 L 105 100 L 95 125 L 105 150 L 95 175 L 100 205',
+    // Horizontal zigzags
+    'M 40 90 L 65 85 L 75 100 L 65 115 L 80 125 L 160 130',
+    'M 40 130 L 70 125 L 80 140 L 70 155 L 85 165 L 160 170',
+    // Diagonal zigzags top-left to bottom-right
+    'M 50 45 L 70 65 L 65 90 L 80 110 L 75 135 L 90 160 L 85 185',
+    'M 150 45 L 130 65 L 135 90 L 120 110 L 125 135 L 110 160 L 115 185',
+    // Curved horizontal with zigzag
+    'M 35 75 L 60 70 L 70 85 L 65 100 L 75 110 L 85 120 L 95 130 L 110 138 L 130 145 L 160 150',
+    // Curved with vertical zigzag
+    'M 60 35 L 75 55 L 70 75 L 85 95 L 80 115 L 95 135 L 90 160 L 100 190',
+    // Middle zigzag going across
+    'M 45 110 L 70 105 L 80 120 L 70 135 L 85 150 L 100 160 L 120 155 L 140 165 L 155 175',
+    // Bottom diagonal zigzag
+    'M 50 150 L 75 140 L 85 160 L 75 180 L 90 195 L 110 190 L 130 200',
   ];
 
   const handleTap = (e) => {
