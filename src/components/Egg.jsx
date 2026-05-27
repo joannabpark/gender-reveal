@@ -5,24 +5,28 @@ const Egg = ({ onTap, tapCount, maxTaps, isRevealed }) => {
   const [isWiggling, setIsWiggling] = useState(false);
   const [cracks, setCracks] = useState([]);
 
-  // Mostly horizontal zigzags with some vertical for realistic hatching
+  // True horizontal cracks with varied zigzag designs, staying within egg
   const crackPaths = [
-    // Horizontal zigzags (majority)
-    'M 40 70 L 65 65 L 75 80 L 65 95 L 80 110 L 70 125 L 85 140 L 95 150 L 110 155 L 135 160 L 155 165',
-    'M 35 110 L 60 105 L 75 120 L 65 135 L 82 150 L 72 165 L 90 175 L 110 180 L 130 185 L 155 190',
-    'M 45 150 L 70 145 L 85 160 L 75 175 L 92 190 L 110 200',
-    'M 40 90 L 75 85 L 90 100 L 80 115 L 100 130 L 120 140 L 145 150 L 160 160',
-    // Slightly angled horizontals
-    'M 50 50 L 80 55 L 95 70 L 85 85 L 105 100 L 120 115 L 140 125 L 155 135',
-    'M 45 180 L 75 175 L 90 190 L 100 200',
-    // Vertical for structure
-    'M 100 30 L 95 70 L 105 110 L 95 150 L 105 190',
-    // Mixed diagonal-horizontal
-    'M 50 130 L 85 125 L 105 145 L 95 165 L 120 180 L 140 190',
-    // Wide horizontal spread
-    'M 30 120 L 70 115 L 95 135 L 120 145 L 150 155 L 165 160',
-    // Bottom horizontal
-    'M 55 170 L 90 165 L 110 180 L 135 190 L 160 195',
+    // Shallow wide zigzag (top)
+    'M 45 65 L 75 63 L 85 68 L 105 66 L 125 70 L 145 68 L 155 70',
+    // Medium zigzag (upper-middle)
+    'M 40 95 L 65 93 L 75 98 L 90 96 L 110 100 L 130 98 L 150 102 L 160 100',
+    // Tight zigzag (middle)
+    'M 45 125 L 60 124 L 70 127 L 80 125 L 90 128 L 100 126 L 110 129 L 120 127 L 135 130 L 150 128 L 160 131',
+    // Wide shallow zigzag (lower-middle)
+    'M 40 155 L 75 152 L 95 157 L 120 154 L 145 158 L 160 156',
+    // Small amplitude zigzag (lower)
+    'M 50 180 L 70 179 L 85 181 L 100 180 L 115 182 L 130 181 L 150 183',
+    // Diagonal-slight horizontal (top-right to bottom-left)
+    'M 50 50 L 80 52 L 100 50 L 120 53 L 140 51 L 155 54',
+    // Large amplitude zigzag (middle-left area)
+    'M 45 110 L 65 107 L 80 115 L 100 110 L 120 118 L 140 112 L 155 120',
+    // Fine zigzag pattern (dense)
+    'M 55 140 L 68 139 L 75 141 L 85 140 L 95 142 L 105 141 L 115 143 L 125 142 L 135 144 L 148 143',
+    // Wavy horizontal (top area)
+    'M 40 75 L 70 73 L 90 77 L 110 74 L 135 78 L 155 75',
+    // Bottom horizontal with zigzag
+    'M 50 195 L 80 193 L 105 197 L 130 194 L 155 198',
   ];
 
   const handleTap = (e) => {
